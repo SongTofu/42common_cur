@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yejsong <yejsong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/29 21:41:41 by song-yejin        #+#    #+#             */
+/*   Updated: 2021/05/25 12:38:32 by yejsong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+int		ft_isalpha(int c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int		ft_isdigit(int c)
+{
+	return ((c >= '0' && c <= '9'));
+}
+
+int		ft_atoi(char **s)
+{
+	int	ret;
+
+	ret = 0;
+	while (ft_isdigit(**s))
+	{
+		ret = ret * 10 + **s - '0';
+		(*s)++;
+		if (ret < 0)
+		{
+			while (ft_isdigit(**s))
+				(*s)++;
+			return (RET_ERROR);
+		}
+	}
+	return (ret);
+}
+
+void	ft_free(char **line)
+{
+	if (*line)
+		free(*line);
+	*line = 0;
+}
+
+void	*ft_calloc(size_t number, size_t size, char ch)
+{
+	void	*ret;
+	size_t	idx;
+
+	idx = 0;
+	ret = (char *)malloc(size * number);
+	if (!ret)
+		ft_exit("ERROR memory alloc failed");
+	ft_memset(ret, size * number, ch);
+	return (ret);
+}
